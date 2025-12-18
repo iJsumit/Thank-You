@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Thanks Machine – Tailwind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @keyframes pop {
+            from {
+                opacity: 0;
+                transform: scale(.95)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg)
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 text-white overflow-hidden">
+
+    <div
+        class="w-[380px] max-w-[92%] rounded-2xl bg-white/10 backdrop-blur-xl shadow-2xl p-8 text-center animate-[pop_.6s_ease]">
+
+        <h2 class="text-xl font-semibold mb-6">🎉 Thanks Machine</h2>
+
+        <!-- Select -->
+        <select id="nameSelect"
+            class="w-full p-3 rounded-xl text-slate-800 font-medium outline-none focus:ring-2 focus:ring-yellow-400">
+            <option value="">Choose Team Member 😄</option>
+            <option value="Ankit">Ankit</option>
+            <option value="Anubhav">Anubhav</option>
+            <option value="Ashtam">Ashtam</option>
+            <option value="Dhruv">Dhruv</option>
+            <option value="Gaurav">Gaurav</option>
+            <option value="Himanshu">Himanshu</option>
+            <option value="Naina">Naina</option>
+            <option value="Prem">Prem</option>
+            <option value="Rohit">Rohit</option>
+            <option value="Simran">Simran</option>
+            <option value="Srishti">Srishti</option>
+            <option value="Saurabh Sir">Saurabh Sir</option>
+        </select>
+
+        <!-- Button -->
+        <button onclick="generateMessage()"
+            class="mt-4 w-full bg-yellow-400 text-slate-900 font-semibold py-3 rounded-xl hover:-translate-y-0.5 transition">
+            Generate Message
+        </button>
+
+        <!-- Message Box -->
+        <div id="msgBox" class="hidden mt-6 bg-black/30 rounded-xl p-4 text-sm leading-relaxed min-h-[90px] text-left">
+        </div>
+    </div>
+
+    <script>
+        const messages = {
+            "Ankit": "🙏 Demo thank you message for Ankit.\n(Replace this later)",
+            "Anubhav": "🙏 Demo thank you message for Anubhav.\n(Replace this later)",
+            "Ashtam": "🙏 Demo thank you message for Ashtam.\n(Replace this later)",
+            "Dhruv": "🙏 Demo thank you message for Dhruv.\n(Replace this later)",
+            "Gaurav": "🙏 Demo thank you message for Gaurav.\n(Replace this later)",
+            "Himanshu": "🙏 Demo thank you message for Himanshu.\n(Replace this later)",
+            "Naina": "🙏 Demo thank you message for Naina.\n(Replace this later)",
+            "Prem": "🙏 Demo thank you message for Prem.\n(Replace this later)",
+            "Rohit": "🙏 Demo thank you message for Rohit.\n(Replace this later)",
+            "Simran": "🙏 Demo thank you message for Simran.\n(Replace this later)",
+            "Srishti": "🙏 Demo thank you message for Srishti.\n(Replace this later)",
+            "Saurabh Sir": "🙏 Demo thank you message for Saurabh Sir.\n(Replace this later)"
+        };
+
+        function generateMessage() {
+            const name = document.getElementById("nameSelect").value;
+            if (!name) {
+                alert("Pehle naam select kar bhai 😄");
+                return;
+            }
+
+            const box = document.getElementById("msgBox");
+            box.classList.remove("hidden");
+            box.innerHTML = "";
+
+            typeWriter(box, messages[name]);
+            confetti();
+        }
+
+        function typeWriter(el, text) {
+            let i = 0;
+            const interval = setInterval(() => {
+                el.innerHTML = text.slice(0, i) + '<span class="animate-pulse">|</span>';
+                i++;
+                if (i > text.length) {
+                    clearInterval(interval);
+                    el.innerHTML = text.replace(/\n/g, "<br>");
+                }
+            }, 30);
+        }
+
+        function confetti() {
+            for (let i = 0; i < 20; i++) {
+                const c = document.createElement("div");
+                c.className = "fixed top-0 w-2 h-2 rounded";
+                c.style.left = Math.random() * 100 + "%";
+                c.style.background = `hsl(${Math.random() * 360},100%,50%)`;
+                c.style.animation = `fall ${2 + Math.random() * 2}s linear`;
+                document.body.appendChild(c);
+
+                setTimeout(() => c.remove(), 4000);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
